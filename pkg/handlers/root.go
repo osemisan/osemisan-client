@@ -8,6 +8,8 @@ import (
 	"github.com/osemisan/osemisan-client/pkg/templates"
 )
 
+// クッキーからアクセストークンを読み出し、トークンに対応するスコープとともにビューにわたす
+// クッキーが設定されてない場合は空文字列を渡す
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	tok := ""
 	cookie, err := r.Cookie("token")
