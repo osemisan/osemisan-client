@@ -48,4 +48,4 @@ func (ss ScopeStore) Get(tok string) (string, error) {
 	return "", &ScopeStoreError{ msg: "invalid scope", err: nil }
 }
 
-var store ScopeStore
+var Store ScopeStore = ScopeStore{}
