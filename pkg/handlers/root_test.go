@@ -9,11 +9,6 @@ import (
 	"github.com/osemisan/osemisan-client/testutil"
 )
 
-func GetTestHandler() http.HandlerFunc {
-	fn := handlers.RootHandler
-	return fn
-}
-
 func TestRootHandler(t *testing.T) {
 	c := new(http.Client)
 
@@ -45,7 +40,7 @@ func TestRootHandler(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := httptest.NewServer(GetTestHandler())
+			s := httptest.NewServer(http.HandlerFunc(handlers.RootHandler))
 			defer s.Close()
 
 			req, err := http.NewRequest(http.MethodGet, s.URL, nil)
@@ -54,11 +49,12 @@ func TestRootHandler(t *testing.T) {
 				return
 			}
 
-			req.AddCookie(&http.Cookie{
-				Name:  "token",
-				Value: tt.token,
-			})
-
+			if !tt.withoutTok {
+				req.AddCookie(&http.Cookie{
+					Name:  "token",
+					Value: tt.token,
+				})
+			}
 			res, err := c.Do(req)
 			if err != nil {
 				t.Error("Failed to request", err)

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -12,24 +11,19 @@ import (
 )
 
 func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
-	tokenC, err := r.Cookie("token")
-	if err != nil {
-		if !errors.Is(err, http.ErrNoCookie) {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	} else {
-		// トークンが格納されたクッキーを削除する
-		tokenC.MaxAge = -1
-		http.SetCookie(w, tokenC)
+	// MaxAgeを負数にして期限切れにして実質削除する
+	c := &http.Cookie{
+		Name:   "token",
+		Value:  "",
+		MaxAge: -1,
 	}
+	http.SetCookie(w, c)
 
 	// ランダムなステートを生成してクッキーに入れとく
 	state := random.GenStr(32)
 	stateC := http.Cookie{
-		Name:     "state",
-		Value:    state,
-		HttpOnly: true,
+		Name:  "state",
+		Value: state,
 	}
 	http.SetCookie(w, &stateC)
 
