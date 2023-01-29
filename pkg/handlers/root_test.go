@@ -17,10 +17,10 @@ func GetTestHandler() http.HandlerFunc {
 func TestRootHandler(t *testing.T) {
 	c := new(http.Client)
 
-	tests := []struct{
-		name string
-		token string
-		withoutTok bool
+	tests := []struct {
+		name           string
+		token          string
+		withoutTok     bool
 		wantStatusCode int
 	}{
 		{
@@ -55,7 +55,7 @@ func TestRootHandler(t *testing.T) {
 			}
 
 			req.AddCookie(&http.Cookie{
-				Name: "token",
+				Name:  "token",
 				Value: tt.token,
 			})
 

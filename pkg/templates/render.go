@@ -25,14 +25,14 @@ func Render(name string, w http.ResponseWriter, data any) error {
 	// このファイルからの相対パスでルートのパスを取得する
 	_, file, _, ok := runtime.Caller(0)
 	if !ok {
-		return &RenderTemplateError{ msg: "get filename", err: nil }
+		return &RenderTemplateError{msg: "get filename", err: nil}
 	}
 	d := filepath.Join(file, "..", "..", "..")
 
 	f := d + "/data/" + name + ".html"
 	tmpl, err := template.ParseFiles(f)
 	if err != nil {
-		return &RenderTemplateError{ msg: "parse template file", err: err } 
+		return &RenderTemplateError{msg: "parse template file", err: err}
 	}
 	w.Header().Set("Content-Type", "text/html")
 	tmpl.Execute(w, data)

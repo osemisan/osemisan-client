@@ -19,7 +19,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else {
-	  tok = cookie.Value
+		tok = cookie.Value
 	}
 	var s string
 	if tok != "" {
@@ -29,9 +29,9 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	err = templates.Render("index", w, map[string]string {
+	err = templates.Render("index", w, map[string]string{
 		"accessToken": tok,
-		"scope": s,
+		"scope":       s,
 	})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

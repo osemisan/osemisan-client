@@ -27,8 +27,8 @@ func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 	// ランダムなステートを生成してクッキーに入れとく
 	state := random.GenStr(32)
 	stateC := http.Cookie{
-		Name: "state",
-		Value: state,
+		Name:     "state",
+		Value:    state,
 		HttpOnly: true,
 	}
 	http.SetCookie(w, &stateC)

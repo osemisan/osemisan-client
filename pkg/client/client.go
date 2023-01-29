@@ -1,10 +1,10 @@
 package client
 
 type Client struct {
-  Id string
-  Secret string
-  URIs []string
-  Scope string
+	Id     string
+	Secret string
+	URIs   []string
+	Scope  string
 }
 
 var C = Client{
