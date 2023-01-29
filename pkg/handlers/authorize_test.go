@@ -47,14 +47,13 @@ func TestAuthorizeHandler(t *testing.T) {
 	c := new(http.Client)
 
 	ts, err := MockAuthorizationServer()
-	ts.Start()
-	defer ts.Close()
-
 	if err != nil {
 		t.Error("Failed to create mock server", err)
 		return
 	}
+	ts.Start()
 	defer ts.Close()
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := httptest.NewServer(http.HandlerFunc(handlers.AuthorizeHandler))
