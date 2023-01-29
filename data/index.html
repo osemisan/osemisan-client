@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+  <title>osemisanクライアント</title>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <h1>osemisanクライアント</h1>
+  <div>
+    {{ if eq .accessToken "" }}
+    <p>アクセストークン: なし</p>
+    {{ else }}
+    <p>アクセストークン: {{ .accessToken }}</p>
+    {{ end }}
+    <!-- -->
+    {{ if eq .scope "" }}
+    <p>スコープ: なし</p>
+    {{ else }}
+    <p>スコープ: {{ .scope }}</p>
+    {{ end }}
+    <a href="/authorize">トークンを取得する</a>
+    <a href="/fetch_resource">セミの情報を取得する</a>
+  </div>
+</body>
