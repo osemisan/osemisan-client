@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+  <title>osemisanクライアント</title>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <h1>osemisanクライアント</h1>
+  <div>
+    <h2>セミ一覧</h2>
+    <tablce>
+      <tr>
+        <th>名前</th>
+        <th>体長</th>
+      </tr>
+      {{ range .resource }}
+      <tr>
+        <td>{{.Name}}</td>
+        <td>{{.Length}}</td>
+      </tr>
+      {{ end }}
+    </tablce>
+  </div>
+</body>

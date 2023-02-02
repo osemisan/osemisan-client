@@ -19,6 +19,7 @@ func main() {
 	r.Get("/", handlers.RootHandler)
 	r.Get("/authorize", handlers.AuthorizeHandler)
 	r.Get("/callback", handlers.CallbackHandler)
+	r.Get("/fetch_resource", handlers.FetchResourceHandler)
 
 	http.ListenAndServe(":9000", r)
 }
