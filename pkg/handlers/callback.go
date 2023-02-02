@@ -48,7 +48,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	if state == stateCookie.Value {
 		oplog.Info().Msg("State matched")
 	} else {
-		err := templates.Render("error", w, map[string]string {
+		err := templates.Render("error", w, map[string]string{
 			"error": "state がマッチしません",
 		})
 		if err != nil {
@@ -58,7 +58,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	code := r.FormValue("code")
-	
+
 	f := url.Values{}
 	f.Add("grant_type", "authorization_code")
 	f.Add("code", code)
@@ -99,7 +99,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		c := &http.Cookie{
-			Name: "token",
+			Name:  "token",
 			Value: tok.AccessToken,
 		}
 		http.SetCookie(w, c)
@@ -110,15 +110,15 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if err := templates.Render("index", w, map[string]string {
+		if err := templates.Render("index", w, map[string]string{
 			"accessToken": tok.AccessToken,
-			"scope": scope,
+			"scope":       scope,
 		}); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	} else {
-		err := templates.Render("error", w, map[string]string {
+		err := templates.Render("error", w, map[string]string{
 			"error": fmt.Sprintf("アクセストークンのフェッチに失敗しました。サーバーレスポンス: %d", tokRes.StatusCode),
 		})
 		if err != nil {
