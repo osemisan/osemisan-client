@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"net/url"
 
@@ -40,5 +39,5 @@ func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 	q.Set("state", state)
 	u.RawQuery = q.Encode()
 
-	http.Redirect(w, r, fmt.Sprintf("%s", u), http.StatusPermanentRedirect)
+	http.Redirect(w, r, u.String(), http.StatusPermanentRedirect)
 }
