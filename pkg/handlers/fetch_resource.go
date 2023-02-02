@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -21,19 +22,18 @@ func FetchResourceHandler(w http.ResponseWriter, r *http.Request) {
 
 	cookie, err := r.Cookie("token")
 	if err != nil {
+		if errors.Is(err, http.ErrNoCookie) {
+			if err := templates.Render("error", w, map[string]string{
+				"message": "Missing access token",
+			}); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+			return
+		}
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	token := cookie.Value
-
-	if token != "" {
-		if err := templates.Render("error", w, map[string]string{
-			"message": "Missing access token",
-		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-		return
-	}
 
 	oplog.Info().Msgf("Missing request with access token %s", token)
 

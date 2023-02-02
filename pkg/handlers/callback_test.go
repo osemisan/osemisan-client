@@ -78,6 +78,7 @@ func TestCallbackHandler(t *testing.T) {
 			req, err := http.NewRequest(http.MethodGet, u.String(), nil)
 			if err != nil {
 				t.Error("Failed to create new request", err)
+				return
 			}
 
 			// すでに authorize エンドポイントを叩いている想定なので、ステートをクッキーにセットしておく
