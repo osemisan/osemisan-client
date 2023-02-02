@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	l := httplog.NewLogger("osemisan-resource-server", httplog.Options{
+	l := httplog.NewLogger("osemisan-client", httplog.Options{
 		JSON: true,
 	})
 	r := chi.NewRouter()
