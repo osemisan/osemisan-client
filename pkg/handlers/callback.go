@@ -119,7 +119,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		err := templates.Render("error", w, map[string]string{
-			"error": fmt.Sprintf("アクセストークンのフェッチに失敗しました。サーバーレスポンス: %d", tokRes.StatusCode),
+			"message": fmt.Sprintf("アクセストークンのフェッチに失敗しました。サーバーレスポンス: %d", tokRes.StatusCode),
 		})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

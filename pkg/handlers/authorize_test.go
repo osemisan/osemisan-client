@@ -18,12 +18,12 @@ func TestAuthorizeHandler(t *testing.T) {
 		{
 			"クッキーのトークンが格納された状態でリクエストしたらクッキーのトークンが削除される",
 			true,
-			http.StatusPermanentRedirect,
+			http.StatusFound,
 		},
 		{
 			"クッキーにトークンがないときにリクエストしたら当然クッキーにトークンはない",
 			false,
-			http.StatusPermanentRedirect,
+			http.StatusFound,
 		},
 	}
 	c := new(http.Client)

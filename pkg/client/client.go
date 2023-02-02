@@ -8,8 +8,8 @@ type Client struct {
 }
 
 var C = Client{
-	Id: "osemisan-client-id-1",
+	Id:     "osemisan-client-id-1",
 	Secret: "osemisan-client-secret-1",
-	URIs: []string{"http://localhost:9000/callback"},
-	Scope: "abura kuma",
+	URIs:   []string{"http://localhost:9000/callback"},
+	Scope:  "abura kuma",
 }

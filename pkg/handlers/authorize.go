@@ -39,5 +39,5 @@ func AuthorizeHandler(w http.ResponseWriter, r *http.Request) {
 	q.Set("state", state)
 	u.RawQuery = q.Encode()
 
-	http.Redirect(w, r, u.String(), http.StatusPermanentRedirect)
+	http.Redirect(w, r, u.String(), http.StatusFound)
 }
