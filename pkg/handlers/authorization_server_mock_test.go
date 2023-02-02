@@ -12,7 +12,7 @@ import (
 	"github.com/osemisan/osemisan-client/testutil"
 )
 
-func MockAuthorizationServer (t *testing.T) (*httptest.Server, error) {
+func MockAuthorizationServer(t *testing.T) (*httptest.Server, error) {
 	r := chi.NewRouter()
 
 	r.Get("/authorize", func(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +22,7 @@ func MockAuthorizationServer (t *testing.T) (*httptest.Server, error) {
 	r.Post("/token", func(w http.ResponseWriter, r *http.Request) {
 		tokenRes := handlers.TokenResponse{
 			AccessToken: testutil.BuildScopedJwt(t, testutil.Scopes{
-				Abura: true,
+				Abura:  true,
 				Minmin: true,
 			}),
 			TokenType: "Bearer",

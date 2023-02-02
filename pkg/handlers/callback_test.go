@@ -17,11 +17,11 @@ func TestCallbackHandler(t *testing.T) {
 	dummyState := "dummystate"
 
 	tests := []struct {
-		name string
-		query url.Values
-		wantTextInResHTML string
+		name                    string
+		query                   url.Values
+		wantTextInResHTML       string
 		wantAccessTokenInCookie string
-		wantStatusCode int
+		wantStatusCode          int
 	}{
 		{
 			name: "クエリパラメターにerrorをつけると、エラーページが返ってくる",
@@ -29,18 +29,18 @@ func TestCallbackHandler(t *testing.T) {
 				"state": {dummyState},
 				"error": {"ERROR MESSAGE"},
 			},
-			wantTextInResHTML: "ERROR MESSAGE",
+			wantTextInResHTML:       "ERROR MESSAGE",
 			wantAccessTokenInCookie: "",
-			wantStatusCode: http.StatusOK,
+			wantStatusCode:          http.StatusOK,
 		},
 		{
 			name: "不正なstate値を渡すと、エラーページが返ってくる",
 			query: url.Values{
 				"state": {"invaliddummystate"},
 			},
-			wantTextInResHTML: "stateがマッチしません",
+			wantTextInResHTML:       "stateがマッチしません",
 			wantAccessTokenInCookie: "",
-			wantStatusCode: http.StatusOK,
+			wantStatusCode:          http.StatusOK,
 		},
 		{
 			name: "リクエストが正常に処理された場合、クッキーにアクセストークンが格納されている",
@@ -49,7 +49,7 @@ func TestCallbackHandler(t *testing.T) {
 			},
 			wantTextInResHTML: "アクセストークン",
 			wantAccessTokenInCookie: testutil.BuildScopedJwt(t, testutil.Scopes{
-				Abura: true,
+				Abura:  true,
 				Minmin: true,
 			}),
 			wantStatusCode: http.StatusOK,
@@ -82,7 +82,7 @@ func TestCallbackHandler(t *testing.T) {
 
 			// すでに authorize エンドポイントを叩いている想定なので、ステートをクッキーにセットしておく
 			req.AddCookie(&http.Cookie{
-				Name: "state",
+				Name:  "state",
 				Value: dummyState,
 			})
 
@@ -108,7 +108,7 @@ func TestCallbackHandler(t *testing.T) {
 			}
 
 			if tt.wantAccessTokenInCookie != "" && tt.wantAccessTokenInCookie != res.Cookies()[0].Value {
-				t.Errorf("Unexpected tokein in Cookie, expected %s, actual: %s", tt.wantAccessTokenInCookie,  res.Cookies()[0].Value)
+				t.Errorf("Unexpected tokein in Cookie, expected %s, actual: %s", tt.wantAccessTokenInCookie, res.Cookies()[0].Value)
 				return
 			}
 		})
