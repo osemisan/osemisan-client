@@ -29,7 +29,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	if e != "" {
 		err := templates.Render("error", w, map[string]string{
-			"error": e,
+			"message": e,
 		})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -49,7 +49,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		oplog.Info().Msg("State matched")
 	} else {
 		err := templates.Render("error", w, map[string]string{
-			"error": "state がマッチしません",
+			"message": "stateがマッチしません",
 		})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

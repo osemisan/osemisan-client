@@ -1,31 +1,13 @@
 package handlers_test
 
 import (
-	"net"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/osemisan/osemisan-client/pkg/client"
 	"github.com/osemisan/osemisan-client/pkg/handlers"
 )
-
-func MockAuthorizationServer() (*httptest.Server, error) {
-	r := chi.NewRouter()
-	r.Get("/authorize", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("test"))
-	})
-	l, err := net.Listen("tcp", ":9001")
-	if err != nil {
-		return nil, err
-	}
-	ts := httptest.Server{
-		Listener: l,
-		Config:   &http.Server{Handler: r},
-	}
-	return &ts, nil
-}
 
 func TestAuthorizeHandler(t *testing.T) {
 	tests := []struct {
@@ -46,7 +28,7 @@ func TestAuthorizeHandler(t *testing.T) {
 	}
 	c := new(http.Client)
 
-	ts, err := MockAuthorizationServer()
+	ts, err := MockAuthorizationServer(t)
 	if err != nil {
 		t.Error("Failed to create mock server", err)
 		return
