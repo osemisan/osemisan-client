@@ -73,6 +73,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	req.SetBasicAuth(client.C.Id, client.C.Secret)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	tokRes, err := c.Do(req)
 	if err != nil {
